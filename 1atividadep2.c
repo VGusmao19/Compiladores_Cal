@@ -9,6 +9,7 @@ char token;
 void error();
 void match(char expectedToken);
 int expe();
+int term();
 int temp();
 int factor();
 
@@ -63,7 +64,7 @@ int expe()
         break;
     case'/':
         match('/');
-        temp = temp/term();
+        temp /= term();
     case'%':
         match('%');
         temp = temp%term();
@@ -78,6 +79,11 @@ int term()
     {
         match('*');
         temp *= factor();
+    }
+    while(token == '/')
+    {
+        match('/');
+        temp /= factor();
     }
     return temp;
 }
@@ -99,6 +105,3 @@ int factor()
     else error();
     return temp;
 }
-
-
-
